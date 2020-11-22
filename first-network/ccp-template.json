@@ -1,0 +1,60 @@
+{
+    "name": "ufo-network-${LORG}Org",
+    "version": "1.0.0",
+    "client": {
+        "organization": "${LORG}",
+        "connection": {
+            "timeout": {
+                "peer": {
+                    "endorser": "300"
+                }
+            }
+        }
+    },
+    "organizations": {
+        "${ORG}": {
+            "mspid": "${LORG}MSP",
+            "peers": [
+                "peer0.${SORG}.ufo.com",
+                "peer1.${SORG}.ufo.com"
+            ],
+            "certificateAuthorities": [
+                "ca.${SORG}.ufo.com"
+            ]
+        }
+    },
+    "peers": {
+        "peer0.${SORG}.ufo.com": {
+            "url": "grpcs://localhost:${P0PORT}",
+            "tlsCACerts": {
+                "pem": "${PEERPEM}"
+            },
+            "grpcOptions": {
+                "ssl-target-name-override": "peer0.${SORG}.ufo.com",
+                "hostnameOverride": "peer0.${SORG}.ufo.com"
+            }
+        },
+        "peer1.${SORG}.ufo.com": {
+            "url": "grpcs://localhost:${P1PORT}",
+            "tlsCACerts": {
+                "pem": "${PEERPEM}"
+            },
+            "grpcOptions": {
+                "ssl-target-name-override": "peer1.${SORG}.ufo.com",
+                "hostnameOverride": "peer1.${SORG}.ufo.com"
+            }
+        }
+    },
+    "certificateAuthorities": {
+        "ca.${SORG}.ufo.com": {
+            "url": "https://localhost:${CAPORT}",
+            "caName": "ca-${SORG}",
+            "tlsCACerts": {
+                "pem": "${CAPEM}"
+            },
+            "httpOptions": {
+                "verify": false
+            }
+        }
+    }
+}

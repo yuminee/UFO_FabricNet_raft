@@ -1,0 +1,88 @@
+---
+name: first-network-SalesOrg
+version: 1.0.0
+client:
+  organization: SalesOrg
+  connection:
+    timeout:
+      peer:
+        endorser: '300'
+organizations:
+  Orgsales:
+    mspid: SalesMSP
+    peers:
+    - peer0.sales.ufo.com
+    - peer1.sales.ufo.com
+    certificateAuthorities:
+    - ca.sales.ufo.com
+peers:
+  peer0.sales.ufo.com:
+    url: grpcs://localhost:7051
+    tlsCACerts:
+      pem: |
+        -----BEGIN CERTIFICATE-----
+        MIICSzCCAfGgAwIBAgIQKMMnq/ZdDq7sM7GNCiSBCjAKBggqhkjOPQQDAjBwMQsw
+        CQYDVQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UEBxMNU2FuIEZy
+        YW5jaXNjbzEWMBQGA1UEChMNc2FsZXMudWZvLmNvbTEcMBoGA1UEAxMTdGxzY2Eu
+        c2FsZXMudWZvLmNvbTAeFw0yMDExMjIxMTE4MDBaFw0zMDExMjAxMTE4MDBaMHAx
+        CzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlhMRYwFAYDVQQHEw1TYW4g
+        RnJhbmNpc2NvMRYwFAYDVQQKEw1zYWxlcy51Zm8uY29tMRwwGgYDVQQDExN0bHNj
+        YS5zYWxlcy51Zm8uY29tMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAET5w0HDEi
+        Fmi8CqxKviraJpuMmS7Xh8J+P31wEMZpGGDxL8lWNakYVlKgO6WKtswTmPP9OaUm
+        9N4TpxjCD5swTqNtMGswDgYDVR0PAQH/BAQDAgGmMB0GA1UdJQQWMBQGCCsGAQUF
+        BwMCBggrBgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MCkGA1UdDgQiBCCDx9owfdqM
+        tyQ+aTesuST1siNr9hmOjkUBi1HPnkpqqjAKBggqhkjOPQQDAgNIADBFAiEA82Sc
+        eZuqlq7F1vJrMP+2Ro9c8ZxEB4qGGonoVBQQLUACIF+/FtUOQqiknwWNidplu2E6
+        kjzTVdLN2iguKyZx7GVs
+        -----END CERTIFICATE-----
+        
+    grpcOptions:
+      ssl-target-name-override: peer0.sales.ufo.com
+      hostnameOverride: peer0.sales.ufo.com
+  peer1.sales.ufo.com:
+    url: grpcs://localhost:8051
+    tlsCACerts:
+      pem: |
+        -----BEGIN CERTIFICATE-----
+        MIICSzCCAfGgAwIBAgIQKMMnq/ZdDq7sM7GNCiSBCjAKBggqhkjOPQQDAjBwMQsw
+        CQYDVQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UEBxMNU2FuIEZy
+        YW5jaXNjbzEWMBQGA1UEChMNc2FsZXMudWZvLmNvbTEcMBoGA1UEAxMTdGxzY2Eu
+        c2FsZXMudWZvLmNvbTAeFw0yMDExMjIxMTE4MDBaFw0zMDExMjAxMTE4MDBaMHAx
+        CzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlhMRYwFAYDVQQHEw1TYW4g
+        RnJhbmNpc2NvMRYwFAYDVQQKEw1zYWxlcy51Zm8uY29tMRwwGgYDVQQDExN0bHNj
+        YS5zYWxlcy51Zm8uY29tMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAET5w0HDEi
+        Fmi8CqxKviraJpuMmS7Xh8J+P31wEMZpGGDxL8lWNakYVlKgO6WKtswTmPP9OaUm
+        9N4TpxjCD5swTqNtMGswDgYDVR0PAQH/BAQDAgGmMB0GA1UdJQQWMBQGCCsGAQUF
+        BwMCBggrBgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MCkGA1UdDgQiBCCDx9owfdqM
+        tyQ+aTesuST1siNr9hmOjkUBi1HPnkpqqjAKBggqhkjOPQQDAgNIADBFAiEA82Sc
+        eZuqlq7F1vJrMP+2Ro9c8ZxEB4qGGonoVBQQLUACIF+/FtUOQqiknwWNidplu2E6
+        kjzTVdLN2iguKyZx7GVs
+        -----END CERTIFICATE-----
+        
+    grpcOptions:
+      ssl-target-name-override: peer1.sales.ufo.com
+      hostnameOverride: peer1.sales.ufo.com
+certificateAuthorities:
+  ca.sales.ufo.com:
+    url: https://localhost:7054
+    caName: ca-sales
+    tlsCACerts:
+      pem: |
+        -----BEGIN CERTIFICATE-----
+        MIICRDCCAeugAwIBAgIQUeQ7fsGxtnqvWOIUUK5QYDAKBggqhkjOPQQDAjBtMQsw
+        CQYDVQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UEBxMNU2FuIEZy
+        YW5jaXNjbzEWMBQGA1UEChMNc2FsZXMudWZvLmNvbTEZMBcGA1UEAxMQY2Euc2Fs
+        ZXMudWZvLmNvbTAeFw0yMDExMjIxMTE4MDBaFw0zMDExMjAxMTE4MDBaMG0xCzAJ
+        BgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlhMRYwFAYDVQQHEw1TYW4gRnJh
+        bmNpc2NvMRYwFAYDVQQKEw1zYWxlcy51Zm8uY29tMRkwFwYDVQQDExBjYS5zYWxl
+        cy51Zm8uY29tMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEmLT1eGwlIIHNTkwl
+        3LcZRZHQ8eXS4a3DoW/g9mveGkwniscB0i/b/zntEfIYtPdnNJxYRd0Ra1EY6A+K
+        AAprGaNtMGswDgYDVR0PAQH/BAQDAgGmMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggr
+        BgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MCkGA1UdDgQiBCAFiqC0Gqtz3zfHW/X9
+        uIYq4+03Sn4zGxy/aMBl98OZ6TAKBggqhkjOPQQDAgNHADBEAiANV0IH/ulQmh15
+        nSuCMMsGXjCIYKDbN7xTbGfbk4JCvQIgNYK0PM/5QUi+BYw2W9XcuuCJZn7BaL3X
+        21wRU5i5qtc=
+        -----END CERTIFICATE-----
+        
+    httpOptions:
+      verify: false
