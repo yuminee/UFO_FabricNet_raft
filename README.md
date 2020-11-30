@@ -42,3 +42,5 @@
  [raft algorithm ① - understanding raft](https://yuminee.github.io/2020/11/17/Hyperledger%20fabric/raft_algorithm/)
  
  [raft algorithm ② - Hyperledger Fabric generate implementation](https://yuminee.github.io/2020/11/27/Hyperledger%20fabric/raft_algorithm2/)
+ 
+ [raft algorithm ③ - Hyperledger Fabric channel implementation](https://yuminee.github.io/2020/11/29/Hyperledger%20fabric/raft_algorithm3/)
