@@ -15,7 +15,7 @@ LANGUAGE="$3"
 TIMEOUT="$4"
 VERBOSE="$5"
 NO_CHAINCODE="$6"
-: ${CHANNEL_NAME:="mychannel"}
+: ${CHANNEL_NAME:="ufochannel"}
 : ${DELAY:="3"}
 : ${LANGUAGE:="golang"}
 : ${TIMEOUT:="10"}
@@ -25,14 +25,12 @@ LANGUAGE=`echo "$LANGUAGE" | tr [:upper:] [:lower:]`
 COUNTER=1
 MAX_RETRY=10
 
-CC_SRC_PATH="github.com/chaincode/fabcar/javascript"
+CC_SRC_PATH="github.com/chaincode/ufo/javascript"
 if [ "$LANGUAGE" = "node" ]; then
-	CC_SRC_PATH="/opt/gopath/src/github.com/chaincode/fabcar/javascript/"
+	CC_SRC_PATH="/opt/gopath/src/github.com/chaincode/ufo/javascript/"
 fi
 
-if [ "$LANGUAGE" = "java" ]; then
-	CC_SRC_PATH="/opt/gopath/src/github.com/chaincode/fabcar/java/"
-fi
+
 
 echo "Channel name : "$CHANNEL_NAME
 
@@ -84,23 +82,23 @@ updateAnchorPeers 0 1
 echo "Updating anchor peers for org2..."
 updateAnchorPeers 0 2
 
-if [ "${NO_CHAINCODE}" != "true" ]; then
 
+#if [ "${NO_CHAINCODE}" != "true" ]; then
+
+#	packageChaincode 	
 	## Install chaincode on peer0.sales and peer0.customer
-	echo "Installing chaincode on peer0.sales..."
-	installChaincode 0 1
-	echo "Install chaincode on peer0.customer..."
-	installChaincode 0 2
+#	echo "Installing chaincode on peer0.sales..."
+#	installChaincode 0 1 0
+#	echo "Install chaincode on peer0.customer..."
+#	installChaincode 0 2 0
 
 	# Instantiate chaincode on peer0.customer
-	echo "Instantiating chaincode on peer0.customer..."
-	instantiateChaincode 0 2
+#	echo "Instantiating chaincode on peer0.customer..."
+#	instantiateChaincode 0 2 0
 
-	# Query chaincode on peer0.sales
-	echo "Querying chaincode on peer0.sales..."
-	chaincodeQuery 0 1
 	
-fi
+	
+#fi
 
 echo
 echo "========= All GOOD, BYFN execution completed =========== "

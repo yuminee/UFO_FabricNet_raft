@@ -112,13 +112,17 @@ installChaincode() {
   setGlobals $PEER $ORG
   VERSION=${3:-1.0}
   set -x
-  peer chaincode install -n fabcar -v ${VERSION} -l ${LANGUAGE} -p ${CC_SRC_PATH} >&log.txt
+  peer chaincode install -n ufo -v ${VERSION} ccpack.out -l ${LANGUAGE} -p ${CC_SRC_PATH} >&log.txt
   res=$?
   set +x
   cat log.txt
   verifyResult $res "Chaincode installation on peer${PEER}.${ORG} has failed"
   echo "===================== Chaincode is installed on peer${PEER}.${ORG} ===================== "
   echo
+}
+
+packageChaincode(){
+  peer chaincode package -n ufo -l node -p ${CC_SRC_PATH} -v 0 -s -S ccpack.out
 }
 
 instantiateChaincode() {
@@ -132,12 +136,12 @@ instantiateChaincode() {
   # the "-o" option
   if [ -z "$CORE_PEER_TLS_ENABLED" -o "$CORE_PEER_TLS_ENABLED" = "false" ]; then
     set -x
-    peer chaincode instantiate -o orderer.ufo.com:7050 -C $CHANNEL_NAME -n fabcar -l ${LANGUAGE} -v ${VERSION} -c '{"Args":["initLedger"]}' -P "AND ('SalesMSP.peer','CustomerMSP.peer')" >&log.txt
+    peer chaincode instantiate -o orderer.ufo.com:7050 -C $CHANNEL_NAME -n ufo -l ${LANGUAGE} -v ${VERSION} -c '{"Args":[]}' -P "AND ('SalesMSP.peer','CustomerMSP.peer')" >&log.txt
     res=$?
     set +x
   else
     set -x
-    peer chaincode instantiate -o orderer.ufo.com:7050 --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA -C $CHANNEL_NAME -n fabcar -l ${LANGUAGE} -v 1.0 -c '{"Args":["initLedger"]}' -P "AND ('SalesMSP.peer','CustomerMSP.peer')" >&log.txt
+    peer chaincode instantiate -o orderer.ufo.com:7050 --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA -C $CHANNEL_NAME -n ufo -l ${LANGUAGE} -v 0 -c '{"Args":[]}' -P "AND ('SalesMSP.peer','CustomerMSP.peer')" >&log.txt
     res=$?
     set +x
   fi
@@ -146,6 +150,7 @@ instantiateChaincode() {
   echo "===================== Chaincode is instantiated on peer${PEER}.${ORG} on channel '$CHANNEL_NAME' ===================== "
   echo
 }
+
 
 upgradeChaincode() {
   PEER=$1
@@ -286,29 +291,4 @@ parsePeerConnectionParameters() {
   PEERS="$(echo -e "$PEERS" | sed -e 's/^[[:space:]]*//')"
 }
 
-# chaincodeInvoke <peer> <org> ...
-# Accepts as many peer/org pairs as desired and requests endorsement from each
-chaincodeInvoke() {
-  parsePeerConnectionParameters $@
-  res=$?
-  verifyResult $res "Invoke transaction failed on channel '$CHANNEL_NAME' due to uneven number of peer and org parameters "
 
-  # while 'peer chaincode' command can get the orderer endpoint from the
-  # peer (if join was successful), let's supply it directly as we know
-  # it using the "-o" option
-  if [ -z "$CORE_PEER_TLS_ENABLED" -o "$CORE_PEER_TLS_ENABLED" = "false" ]; then
-    set -x
-    peer chaincode invoke -o orderer.ufo.com:7050 -C $CHANNEL_NAME -n fabcar $PEER_CONN_PARMS -c '{"Args":["createCar","CAR11","mazda","626", "White", "Horea"]}' >&log.txt
-    res=$?
-    set +x
-  else
-    set -x
-    peer chaincode invoke -o orderer.ufo.com:7050 --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA -C $CHANNEL_NAME -n fabcar $PEER_CONN_PARMS -c '{"Args":["createCar","CAR11","mazda","626", "White", "Horea"]}' >&log.txt
-    res=$?
-    set +x
-  fi
-  cat log.txt
-  verifyResult $res "Invoke execution on $PEERS failed "
-  echo "===================== Invoke transaction successful on $PEERS on channel '$CHANNEL_NAME' ===================== "
-  echo
-}

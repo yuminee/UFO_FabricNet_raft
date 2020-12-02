@@ -42,7 +42,7 @@ function printHelp() {
   echo "      - 'restart' - restart the network"
   echo "      - 'generate' - generate required certificates and genesis block"
   echo "      - 'upgrade'  - upgrade the network from version 1.3.x to 1.4.0"
-  echo "    -c <channel name> - channel name to use (defaults to \"mychannel\")"
+  echo "    -c <channel name> - channel name to use (defaults to \"ufochannel\")"
   echo "    -t <timeout> - CLI timeout duration in seconds (defaults to 10)"
   echo "    -d <delay> - delay duration in seconds (defaults to 3)"
   echo "    -f <docker-compose-file> - specify which docker-compose file use (defaults to docker-compose-cli.yaml)"
@@ -58,12 +58,12 @@ function printHelp() {
   echo "Typically, one would first generate the required certificates and "
   echo "genesis block, then bring up the network. e.g.:"
   echo
-  echo "	byfn.sh generate -c mychannel"
-  echo "	byfn.sh up -c mychannel -s couchdb"
-  echo "        byfn.sh up -c mychannel -s couchdb -i 1.4.0"
+  echo "	byfn.sh generate -c ufochannel"
+  echo "	byfn.sh up -c ufochannel -s couchdb"
+  echo "        byfn.sh up -c ufochannel -s couchdb -i 1.4.0"
   echo "	byfn.sh up -l node"
-  echo "	byfn.sh down -c mychannel"
-  echo "        byfn.sh upgrade -c mychannel"
+  echo "	byfn.sh down -c ufochannel"
+  echo "        byfn.sh upgrade -c ufochannel"
   echo
   echo "Taking all defaults:"
   echo "	byfn.sh generate"
@@ -495,8 +495,8 @@ CLI_TIMEOUT=10
 CLI_DELAY=3
 # system channel name defaults to "byfn-sys-channel"
 SYS_CHANNEL="byfn-sys-channel"
-# channel name defaults to "mychannel"
-CHANNEL_NAME="mychannel"
+# channel name defaults to "ufochannel"
+CHANNEL_NAME="ufochannel"
 # use this as the default docker-compose yaml definition
 COMPOSE_FILE=docker-compose-cli.yaml
 #
