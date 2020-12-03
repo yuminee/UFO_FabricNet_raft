@@ -1,0 +1,60 @@
+{
+    "name": "ufo-network-SalesOrg",
+    "version": "1.0.0",
+    "client": {
+        "organization": "Sales",
+        "connection": {
+            "timeout": {
+                "peer": {
+                    "endorser": "300"
+                }
+            }
+        }
+    },
+    "organizations": {
+        "${ORG}": {
+            "mspid": "SalesMSP",
+            "peers": [
+                "peer0.sales.ufo.com",
+                "peer1.sales.ufo.com"
+            ],
+            "certificateAuthorities": [
+                "ca.sales.ufo.com"
+            ]
+        }
+    },
+    "peers": {
+        "peer0.sales.ufo.com": {
+            "url": "grpcs://localhost:7051",
+            "tlsCACerts": {
+                "pem": "-----BEGIN CERTIFICATE-----\nMIICSzCCAfKgAwIBAgIRALMtVPd3uLWMnNp77EBU6W8wCgYIKoZIzj0EAwIwcDEL\nMAkGA1UEBhMCVVMxEzARBgNVBAgTCkNhbGlmb3JuaWExFjAUBgNVBAcTDVNhbiBG\ncmFuY2lzY28xFjAUBgNVBAoTDXNhbGVzLnVmby5jb20xHDAaBgNVBAMTE3Rsc2Nh\nLnNhbGVzLnVmby5jb20wHhcNMjAxMjAzMDY1MTAwWhcNMzAxMjAxMDY1MTAwWjBw\nMQswCQYDVQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UEBxMNU2Fu\nIEZyYW5jaXNjbzEWMBQGA1UEChMNc2FsZXMudWZvLmNvbTEcMBoGA1UEAxMTdGxz\nY2Euc2FsZXMudWZvLmNvbTBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABN+LVUI4\nr6JHgnV/Uq4FpWMKAnOkAkVvaIYVBfTJukOKDjg9fVeHTeUCwACeruBXXGNEqz4v\na4eb4WkXpe+GonyjbTBrMA4GA1UdDwEB/wQEAwIBpjAdBgNVHSUEFjAUBggrBgEF\nBQcDAgYIKwYBBQUHAwEwDwYDVR0TAQH/BAUwAwEB/zApBgNVHQ4EIgQg3dPPQjHS\nJYuuhMhSp61zttqtd3CgsU4ZJyAVTZnGoDMwCgYIKoZIzj0EAwIDRwAwRAIgKalW\nt64hCx0PHBOJFyMiPWxDYJCQr9cXLx1B6jwhbqQCICtd6HOv35O18Ep3tZM2dW76\nmvOAdhg16L7zXY/f5gSI\n-----END CERTIFICATE-----\n"
+            },
+            "grpcOptions": {
+                "ssl-target-name-override": "peer0.sales.ufo.com",
+                "hostnameOverride": "peer0.sales.ufo.com"
+            }
+        },
+        "peer1.sales.ufo.com": {
+            "url": "grpcs://localhost:8051",
+            "tlsCACerts": {
+                "pem": "-----BEGIN CERTIFICATE-----\nMIICSzCCAfKgAwIBAgIRALMtVPd3uLWMnNp77EBU6W8wCgYIKoZIzj0EAwIwcDEL\nMAkGA1UEBhMCVVMxEzARBgNVBAgTCkNhbGlmb3JuaWExFjAUBgNVBAcTDVNhbiBG\ncmFuY2lzY28xFjAUBgNVBAoTDXNhbGVzLnVmby5jb20xHDAaBgNVBAMTE3Rsc2Nh\nLnNhbGVzLnVmby5jb20wHhcNMjAxMjAzMDY1MTAwWhcNMzAxMjAxMDY1MTAwWjBw\nMQswCQYDVQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UEBxMNU2Fu\nIEZyYW5jaXNjbzEWMBQGA1UEChMNc2FsZXMudWZvLmNvbTEcMBoGA1UEAxMTdGxz\nY2Euc2FsZXMudWZvLmNvbTBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABN+LVUI4\nr6JHgnV/Uq4FpWMKAnOkAkVvaIYVBfTJukOKDjg9fVeHTeUCwACeruBXXGNEqz4v\na4eb4WkXpe+GonyjbTBrMA4GA1UdDwEB/wQEAwIBpjAdBgNVHSUEFjAUBggrBgEF\nBQcDAgYIKwYBBQUHAwEwDwYDVR0TAQH/BAUwAwEB/zApBgNVHQ4EIgQg3dPPQjHS\nJYuuhMhSp61zttqtd3CgsU4ZJyAVTZnGoDMwCgYIKoZIzj0EAwIDRwAwRAIgKalW\nt64hCx0PHBOJFyMiPWxDYJCQr9cXLx1B6jwhbqQCICtd6HOv35O18Ep3tZM2dW76\nmvOAdhg16L7zXY/f5gSI\n-----END CERTIFICATE-----\n"
+            },
+            "grpcOptions": {
+                "ssl-target-name-override": "peer1.sales.ufo.com",
+                "hostnameOverride": "peer1.sales.ufo.com"
+            }
+        }
+    },
+    "certificateAuthorities": {
+        "ca.sales.ufo.com": {
+            "url": "https://localhost:7054",
+            "caName": "ca-sales",
+            "tlsCACerts": {
+                "pem": "-----BEGIN CERTIFICATE-----\nMIICRTCCAeygAwIBAgIRANuIrWgz/If0Z7FH+zATJ1wwCgYIKoZIzj0EAwIwbTEL\nMAkGA1UEBhMCVVMxEzARBgNVBAgTCkNhbGlmb3JuaWExFjAUBgNVBAcTDVNhbiBG\ncmFuY2lzY28xFjAUBgNVBAoTDXNhbGVzLnVmby5jb20xGTAXBgNVBAMTEGNhLnNh\nbGVzLnVmby5jb20wHhcNMjAxMjAzMDY1MTAwWhcNMzAxMjAxMDY1MTAwWjBtMQsw\nCQYDVQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UEBxMNU2FuIEZy\nYW5jaXNjbzEWMBQGA1UEChMNc2FsZXMudWZvLmNvbTEZMBcGA1UEAxMQY2Euc2Fs\nZXMudWZvLmNvbTBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABCOTcVvOu6E6Z+6I\n1hG4ZFHA3xmgozCI6nKBQeWvMQPDO6wYP+D5vUPxulORA0bkAmnV9SDRTd7VfEaF\n76lPmpKjbTBrMA4GA1UdDwEB/wQEAwIBpjAdBgNVHSUEFjAUBggrBgEFBQcDAgYI\nKwYBBQUHAwEwDwYDVR0TAQH/BAUwAwEB/zApBgNVHQ4EIgQg3KwxxKmDYLnHmJtj\nG0flZajDsufd0q7iJlTITtmdWD0wCgYIKoZIzj0EAwIDRwAwRAIgMWzechKksjbr\nsdtKr7r8Kqg+gyQvbCGQo3ywlxCWXtoCIHN2KIum8NHhZGnOitahvDLkZYkn12AN\nCDSKA2yHtYoC\n-----END CERTIFICATE-----\n"
+            },
+            "httpOptions": {
+                "verify": false
+            }
+        }
+    }
+}

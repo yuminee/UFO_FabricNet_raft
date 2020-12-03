@@ -1,0 +1,88 @@
+---
+name: ufo-network-CustomerOrg
+version: 1.0.0
+client:
+  organization: CustomerOrg
+  connection:
+    timeout:
+      peer:
+        endorser: '300'
+organizations:
+  Orgcustomer:
+    mspid: CustomerMSP
+    peers:
+    - peer0.customer.ufo.com
+    - peer1.customer.ufo.com
+    certificateAuthorities:
+    - ca.customer.ufo.com
+peers:
+  peer0.customer.ufo.com:
+    url: grpcs://localhost:9051
+    tlsCACerts:
+      pem: |
+        -----BEGIN CERTIFICATE-----
+        MIICVzCCAf6gAwIBAgIRAJ9GiOQK4D+Pvjibx/k9dvAwCgYIKoZIzj0EAwIwdjEL
+        MAkGA1UEBhMCVVMxEzARBgNVBAgTCkNhbGlmb3JuaWExFjAUBgNVBAcTDVNhbiBG
+        cmFuY2lzY28xGTAXBgNVBAoTEGN1c3RvbWVyLnVmby5jb20xHzAdBgNVBAMTFnRs
+        c2NhLmN1c3RvbWVyLnVmby5jb20wHhcNMjAxMjAzMDY1MTAwWhcNMzAxMjAxMDY1
+        MTAwWjB2MQswCQYDVQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UE
+        BxMNU2FuIEZyYW5jaXNjbzEZMBcGA1UEChMQY3VzdG9tZXIudWZvLmNvbTEfMB0G
+        A1UEAxMWdGxzY2EuY3VzdG9tZXIudWZvLmNvbTBZMBMGByqGSM49AgEGCCqGSM49
+        AwEHA0IABPorlNO7MgVRvLLoNkQnUltc31Cw04b5buR4a5fjxbsCBAtTn2aE07xN
+        Rq9QjMY4XQQcMOMHWbAVFiWGsOyvTmGjbTBrMA4GA1UdDwEB/wQEAwIBpjAdBgNV
+        HSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwEwDwYDVR0TAQH/BAUwAwEB/zApBgNV
+        HQ4EIgQgU7D7krCXwAF3pMmV+4IccpFQ2DM7NXkZxC5P/zYr0zIwCgYIKoZIzj0E
+        AwIDRwAwRAIgYvqhhHATIwSv6NeBTQyOZBF8O/xAhXupMWJ2xrVQk7UCIEqNYtay
+        mHMgiNFvpA/hFya4s5hHu+afvlstnelKBYPC
+        -----END CERTIFICATE-----
+        
+    grpcOptions:
+      ssl-target-name-override: peer0.customer.ufo.com
+      hostnameOverride: peer0.customer.ufo.com
+  peer1.customer.ufo.com:
+    url: grpcs://localhost:10051
+    tlsCACerts:
+      pem: |
+        -----BEGIN CERTIFICATE-----
+        MIICVzCCAf6gAwIBAgIRAJ9GiOQK4D+Pvjibx/k9dvAwCgYIKoZIzj0EAwIwdjEL
+        MAkGA1UEBhMCVVMxEzARBgNVBAgTCkNhbGlmb3JuaWExFjAUBgNVBAcTDVNhbiBG
+        cmFuY2lzY28xGTAXBgNVBAoTEGN1c3RvbWVyLnVmby5jb20xHzAdBgNVBAMTFnRs
+        c2NhLmN1c3RvbWVyLnVmby5jb20wHhcNMjAxMjAzMDY1MTAwWhcNMzAxMjAxMDY1
+        MTAwWjB2MQswCQYDVQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UE
+        BxMNU2FuIEZyYW5jaXNjbzEZMBcGA1UEChMQY3VzdG9tZXIudWZvLmNvbTEfMB0G
+        A1UEAxMWdGxzY2EuY3VzdG9tZXIudWZvLmNvbTBZMBMGByqGSM49AgEGCCqGSM49
+        AwEHA0IABPorlNO7MgVRvLLoNkQnUltc31Cw04b5buR4a5fjxbsCBAtTn2aE07xN
+        Rq9QjMY4XQQcMOMHWbAVFiWGsOyvTmGjbTBrMA4GA1UdDwEB/wQEAwIBpjAdBgNV
+        HSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwEwDwYDVR0TAQH/BAUwAwEB/zApBgNV
+        HQ4EIgQgU7D7krCXwAF3pMmV+4IccpFQ2DM7NXkZxC5P/zYr0zIwCgYIKoZIzj0E
+        AwIDRwAwRAIgYvqhhHATIwSv6NeBTQyOZBF8O/xAhXupMWJ2xrVQk7UCIEqNYtay
+        mHMgiNFvpA/hFya4s5hHu+afvlstnelKBYPC
+        -----END CERTIFICATE-----
+        
+    grpcOptions:
+      ssl-target-name-override: peer1.customer.ufo.com
+      hostnameOverride: peer1.customer.ufo.com
+certificateAuthorities:
+  ca.customer.ufo.com:
+    url: https://localhost:8054
+    caName: ca-customer
+    tlsCACerts:
+      pem: |
+        -----BEGIN CERTIFICATE-----
+        MIICUDCCAfegAwIBAgIQMEjhijrK/AQ35cSqtq16gzAKBggqhkjOPQQDAjBzMQsw
+        CQYDVQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UEBxMNU2FuIEZy
+        YW5jaXNjbzEZMBcGA1UEChMQY3VzdG9tZXIudWZvLmNvbTEcMBoGA1UEAxMTY2Eu
+        Y3VzdG9tZXIudWZvLmNvbTAeFw0yMDEyMDMwNjUxMDBaFw0zMDEyMDEwNjUxMDBa
+        MHMxCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlhMRYwFAYDVQQHEw1T
+        YW4gRnJhbmNpc2NvMRkwFwYDVQQKExBjdXN0b21lci51Zm8uY29tMRwwGgYDVQQD
+        ExNjYS5jdXN0b21lci51Zm8uY29tMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE
+        jgGEI4vw1VfHcr9LlYsypwpfiIKvgI+CTPnuTLOEMCqd2WVFeyY/y0rNRM7BDLf0
+        WnLyahCZO0rEl5pG6QcPp6NtMGswDgYDVR0PAQH/BAQDAgGmMB0GA1UdJQQWMBQG
+        CCsGAQUFBwMCBggrBgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MCkGA1UdDgQiBCDM
+        Asj9p5cMvY3pbkd1csWzJZsBPxcH3n4Kkb0aYeAQVjAKBggqhkjOPQQDAgNHADBE
+        AiBuOyJWYhoGCllnGchebuF8/IwApFlNrWDN1s76nmg2twIgSMpvEu7zZJ6EVcJe
+        kVRzH+iBFJUZcsAuE841tQYnThs=
+        -----END CERTIFICATE-----
+        
+    httpOptions:
+      verify: false
