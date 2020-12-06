@@ -23,6 +23,16 @@
     | id   | String | 받은 id 값의 Token return |
 
 
+- getHistoryWallet
+
+  - POST /getHistoryWallet
+
+    | key  | value  | Description                         |
+    | ---- | ------ | ----------------------------------- |
+    | id   | String | 받은 id 값의 Wallet History return  |
+
+
+
 
 - deleteWallet
 
