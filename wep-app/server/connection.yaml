@@ -39,7 +39,7 @@ organizations:
     certificateAuthorities:
       - ca.sales.ufo.com
     adminPrivateKey:
-      path: ../../ufo-network/crypto-config/peerOrganizations/sales.ufo.com/users/Admin@sales.ufo.com/msp/keystore/1ec74a57a2d63622ff3b44cb04b4b755a7822a8c8dd62f7c8789ed5e48a4b001_sk
+      path: ../../ufo-network/crypto-config/peerOrganizations/sales.ufo.com/users/Admin@sales.ufo.com/msp/keystore/12b61b569d1a57500c610fdc98dee80d2478f1945ca2e50e87b6a49ac51cd386_sk
     signedCert:
       path: ../../ufo-network/crypto-config/peerOrganizations/sales.ufo.com/users/Admin@sales.ufo.com/msp/signcerts/Admin@sales.ufo.com-cert.pem
   
@@ -51,7 +51,7 @@ organizations:
     certificateAuthorities:
       - ca.customer.ufo.com
     adminPrivateKey:
-      path: ../../ufo-network/crypto-config/peerOrganizations/customer.ufo.com/users/Admin@customer.ufo.com/msp/keystore/e94f3b69c1fe1b53e74b130568803a84ba937cfac89c30e22e3a154122360e3f_sk
+      path: ../../ufo-network/crypto-config/peerOrganizations/customer.ufo.com/users/Admin@customer.ufo.com/msp/keystore/bb9ed37f7cdf51c957030f2429f89bd618c4436b6ca46fe0d8124fd1ee3b9177_sk
     signedCert:
       path: ../../ufo-network/crypto-config/peerOrganizations/customer.ufo.com/users/Admin@customer.ufo.com/msp/signcerts/Admin@customer.ufo.com-cert.pem
 orderers:

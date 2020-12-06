@@ -74,6 +74,106 @@ exports.initWallet = async function(id) {
     }
 }
 
+exports.getBalance = async function(id) {
+
+    try {
+
+        var response = {}
+
+        // Create a new file system based wallet for managing identities.
+        const walletPath = path.join(process.cwd(), '/wallet');
+        const wallet = new FileSystemWallet(walletPath);
+        console.log(`Wallet path: ${walletPath}`);
+
+        // Check to see if we've already enrolled the user.
+        const userExists = await wallet.exists(userName);
+        if (!userExists) {
+            console.log('An identity for the user ' + userName + ' does not exist in the wallet');
+            console.log('Run the registerUser.js application before retrying');
+            response.error = 'An identity for the user ' + userName + ' does not exist in the wallet. Register ' + userName + ' first';
+            return response;
+        }
+
+        // Create a new gateway for connecting to our peer node.
+        console.log('we here in getBalance')
+
+        const gateway = new Gateway();
+        await gateway.connect(connectionFile, { wallet, identity: userName, discovery: gatewayDiscovery });
+
+        // Get the network (channel) our contract is deployed to.
+        const network = await gateway.getNetwork('ufochannel');
+
+        // Get the contract from the network.
+        const contract = network.getContract('ufo');
+
+        // Submit the specified transaction.
+        // initWallet transaction - requires 1 argument, ex: ('initWallet', '11111111')
+
+        const result = await contract.submitTransaction('getBalance', id);
+        console.log('Transaction has been submitted');
+
+        // Disconnect from the gateway.
+        await gateway.disconnect();
+
+        console.log(`Transaction has been evaluated, result is: ${result.toString()}`);
+        
+        return result;        
+
+    } catch (error) {
+        console.error(`Failed to submit transaction: ${error}`);
+        response.error = error.message;
+        return response; 
+    }
+}
+
+exports.deleteWallet = async function(id) {
+    try {
+
+        var response = {};
+
+
+        // Create a new file system based wallet for managing identities.
+        const walletPath = path.join(process.cwd(), '/wallet');
+        const wallet = new FileSystemWallet(walletPath);
+        console.log(`Wallet path: ${walletPath}`);
+
+        // Check to see if we've already enrolled the user.
+        const userExists = await wallet.exists(userName);
+        if (!userExists) {
+            console.log('An identity for the user ' + userName + ' does not exist in the wallet');
+            console.log('Run the registerUser.js application before retrying');
+            response.error = 'An identity for the user ' + userName + ' does not exist in the wallet. Register ' + userName + ' first';
+            return response;
+        }
+
+        // Create a new gateway for connecting to our peer node.
+        const gateway = new Gateway();
+   
+        await gateway.connect(connectionFile, { wallet, identity: userName, discovery: gatewayDiscovery });
+
+        // Get the network (channel) our contract is deployed to.
+        const network = await gateway.getNetwork('ufochannel');
+
+        // Get the contract from the network.
+        const contract = network.getContract('ufo');
+
+        // Submit the specified transaction.
+        // chargeMoney transaction - requires 2 args , ex: ('deleteWallet', '2015116581')
+        await contract.submitTransaction('deleteWallet', id);
+        console.log('Transaction has been submitted');
+
+        // Disconnect from the gateway.
+        await gateway.disconnect();
+
+        response.msg = 'deleteWallet Transaction has been submitted';
+        return response;        
+
+    } catch (error) {
+        console.error(`Failed to submit transaction: ${error}`);
+        response.error = error.message;
+        return response; 
+    }
+}
 
 
 exports.chargeMoney = async function(id, amount) {
@@ -108,14 +208,15 @@ exports.chargeMoney = async function(id, amount) {
 
         // Submit the specified transaction.
         // chargeMoney transaction - requires 2 args , ex: ('chargeMoney', '2015116581', '1000')
-        await contract.submitTransaction('chargeMoney', id, amount);
+        const result = await contract.submitTransaction('chargeMoney', id, amount);
         console.log('Transaction has been submitted');
 
         // Disconnect from the gateway.
         await gateway.disconnect();
 
-        response.msg = 'chargeMoney Transaction has been submitted';
-        return response;        
+        console.log(`Transaction has been evaluated, result is: ${result.toString()}`);
+       
+        return result;        
 
     } catch (error) {
         console.error(`Failed to submit transaction: ${error}`);
@@ -173,10 +274,9 @@ exports.transferMoney = async function(sender, receiver, amount) {
 }
 
 
-// query all cars transaction
-exports.queryAllCars = async function() {
+exports.getHistoryWallet = async function(id) {
+
     try {
-        console.log('starting to queryAllCars')
 
         var response = {};
 
@@ -191,31 +291,38 @@ exports.queryAllCars = async function() {
             console.log('An identity for the user ' + userName + ' does not exist in the wallet');
             console.log('Run the registerUser.js application before retrying');
             response.error = 'An identity for the user ' + userName + ' does not exist in the wallet. Register ' + userName + ' first';
-            return response;            
+            return response;
         }
 
         // Create a new gateway for connecting to our peer node.
-        const gateway = new Gateway();
+        console.log('we here in getHistoryWallet')
 
+        const gateway = new Gateway();
         await gateway.connect(connectionFile, { wallet, identity: userName, discovery: gatewayDiscovery });
 
         // Get the network (channel) our contract is deployed to.
-        const network = await gateway.getNetwork('mychannel');
+        const network = await gateway.getNetwork('ufochannel');
 
         // Get the contract from the network.
-        const contract = network.getContract('fabcar');
+        const contract = network.getContract('ufo');
 
-        // Evaluate the specified transaction.
-        // queryAllCars transaction - requires no arguments, ex: ('queryAllCars')
-        const result = await contract.evaluateTransaction('queryAllCars');
+        // Submit the specified transaction.
+        // initWallet transaction - requires 1 argument, ex: ('initWallet', '11111111')
 
-        console.log(`Transaction has been evaluated, result is: ${result.toString()}`);
+        const result = await contract.evaluateTransaction('getHistory', id);
+       
 
-        return result;
+        // Disconnect from the gateway.
+        await gateway.disconnect();
+     
+        console.log( Buffer.from(result).toString());
+      
+        return result
 
     } catch (error) {
-        console.error(`Failed to evaluate transaction: ${error}`);
+        console.error(`Failed to submit transaction: ${error}`);
         response.error = error.message;
-        return response;
+        return response; 
     }
 }
+

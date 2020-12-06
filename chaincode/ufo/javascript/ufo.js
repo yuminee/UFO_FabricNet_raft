@@ -13,6 +13,9 @@ class Ufo extends Contract{
         console.info('Transaction ID: ' + ctx.stub.getTxID());
         return shim.success();
     }
+
+
+  
     
     /** regisiter user */
 
@@ -26,6 +29,7 @@ class Ufo extends Contract{
 
             ID:id,
             Token:"0",
+            Invoke : "initWallet"
             
 
             }
@@ -51,10 +55,10 @@ class Ufo extends Contract{
         }
 
         console.log(walletAsBytes.toString());
-        walletInfo = JSON.parse(walletAsBytes.toString());
-        walletToken = walletInfo.Token;
+  
+       
         console.info('========== END : getBalance ===========')
-        return walletToken;
+        return walletToken.toString();
     }
 
     async chargeMoney(ctx, id, amount){
@@ -76,6 +80,7 @@ class Ufo extends Contract{
         amount = parseInt(amount);
 
         walletInfo.Token = (walletToken + amount).toString();
+        walletInfo.Invoke = "chargeMoney"
         
         let updatedWalletAsBytes = JSON.stringify(walletInfo);
 
@@ -132,6 +137,9 @@ class Ufo extends Contract{
         
         receiverInfo.Token = (receiverToken + amount).toString();
         senderInfo.Token = (senderToken - amount).toString();
+
+        receiverInfo.Invoke = "receiver"
+        senderInfo.Invoke ="sender"
     
         var updatedSenderAsBytes = JSON.stringify(senderInfo);
         var updatedReceiverAsBytes = JSON.stringify(receiverInfo);
@@ -151,71 +159,71 @@ class Ufo extends Contract{
 
         console.info('========== START : deleteWallet ===========')
 
+        let walletAsbytes = await ctx.stub.getState(id); //get the wallet from chaincode state
+    
+        let jsonResp = {};
+        if (!walletAsbytes) {
+          jsonResp.error = 'wallet does not exist: ' + id;
+          throw new Error(jsonResp);
+        }
 
-        await ctx.stub.deleteState(id); 
+        let wallet = {};
+
+        try {
+          wallet = JSON.parse(walletAsbytes.toString());
+        } catch (err) {
+          jsonResp = {};
+          jsonResp.error = 'Failed to decode JSON of: ' + id;
+          throw new Error(jsonResp);
+        }
+
+        await ctx.stub.deleteState(id); //remove the wallet from chaincode state
+
+     
    
         console.info('========== END : deleteWallet ===========')
 
 
     }
 
-    async changeOrg(ctx, id, org){
+    async getHistory(ctx, key){
 
-    }
+      let walletId = key;
 
-    async getWalletKey(ctx, args, thisClass){
-        
-        let walletId = args[0]
-        console.info('-start getwalletKey: %s\n', walletId);
-
-        
-        let resultsIterator = await ctx.stub.getHistoryForKey(walletId);
-        let method = thisClass['getAllResults'];
-        let results = await method(resultsIterator, true); 
-
-        return Buffer.from(JSON.stringify(results));
-    }
-
-    async getAllResults(iterator, isHistory) {
-        let allResults = [];
-        while (true) {
-          let res = await iterator.next();
+      let iterator = await ctx.stub.getHistoryForKey(walletId);
     
-          if (res.value && res.value.value.toString()) {
-            let jsonRes = {};
-            console.log(res.value.value.toString('utf8'));
+      let allResults = [];
+      while (true) {
+        let res = await iterator.next();
+        if (res.value && res.value.value.toString()) {
+          let jsonRes = {};
+          console.log(res.value.value.toString('utf8'));
     
-            if (isHistory && isHistory === true) {
-              jsonRes.TxId = res.value.tx_id;
-              jsonRes.Timestamp = res.value.timestamp;
-              jsonRes.IsDelete = res.value.is_delete.toString();
-              try {
-                jsonRes.Value = JSON.parse(res.value.value.toString('utf8'));
-              } catch (err) {
-                console.log(err);
-                jsonRes.Value = res.value.value.toString('utf8');
-              }
-            } else {
-              jsonRes.Key = res.value.key;
-              try {
-                jsonRes.Record = JSON.parse(res.value.value.toString('utf8'));
-              } catch (err) {
-                console.log(err);
-                jsonRes.Record = res.value.value.toString('utf8');
-              }
-            }
-            allResults.push(jsonRes);
+          jsonRes.TxId = res.value.tx_id;
+          jsonRes.Timestamp = res.value.timestamp;
+          jsonRes.IsDelete = res.value.is_delete.toString();
+          try {
+            jsonRes.Value = JSON.parse(res.value.value.toString('utf8'));
+          } catch (err) {
+            console.log(err);
+            jsonRes.Value = res.value.value.toString('utf8');
           }
-          if (res.done) {
-            console.log('end of data');
+          console.info(jsonRes);
+          allResults.push(jsonRes);
+        }
+        if (res.done) {
+          console.log('end of data');
+          try{
             await iterator.close();
-            console.info(allResults);
-            return allResults;
+          }catch(err){
+            console.log(err);
           }
+          console.info(allResults);
+          return Buffer.from(JSON.stringify(allResults));
         }
       }
-   
-
+    
+    }
     
 
 }

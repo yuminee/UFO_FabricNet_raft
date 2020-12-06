@@ -136,7 +136,7 @@ instantiateChaincode() {
   peer chaincode instantiate -o orderer.ufo.com:7050 -C ufochannel -n ufo -l node -v 0 -c '{"Args":[]}' -P 'AND('\''SalesMSP.member'\'','\''CustomerMSP.member'\'')' --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/ufo.com/orderers/orderer.ufo.com/msp/tlscacerts/tlsca.ufo.com-cert.pem 
 
    
-  fi
+  
   cat log.txt
   verifyResult $res "Chaincode instantiation on peer${PEER}.org${ORG} on channel '$CHANNEL_NAME' failed"
   echo "===================== Chaincode is instantiated on peer${PEER}.org${ORG} on channel '$CHANNEL_NAME' ===================== "

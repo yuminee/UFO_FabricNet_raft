@@ -4,6 +4,7 @@ const cors = require('cors')
 const morgan = require('morgan')
 
 var network = require('./fabric/network.js');
+const { response } = require('express');
 
 const app = express()
 app.use(morgan('combined'))
@@ -23,10 +24,24 @@ app.post('/initWallet', (req, res) => {
     })
   })  
   
+app.post('/deleteWallet', (req, res) => {
+
+    network.deleteWallet(req.body.id)
+    .then((response) => {
+      res.send(response)
+    })
+})
 
 
+app.post('/getBalance', (req, res) => {
 
+  network.deleteWallet(req.body.id)
+  .then((response) => {
+    var walletToken = JSON.parse(response);        
+    res.send(walletToken)
+  })
 
+})
 
 app.post('/chargeMoney', (req, res) => {
   network.chargeMoney(req.body.id, req.body.amount)
@@ -43,6 +58,17 @@ app.post('/transferMoney', (req, res) => {
       })
 }
 )
+
+app.post('/getHistoryWallet', (req,res) => {
+  network.getHistoryWallet(req.body.id)
+  .then((response) => {
+    var walltHistory = JSON.parse(response);        
+    res.send(Buffer.from(walltHistory).toString())
+  
+  
+  })
+
+})
 
 app.listen(PORT, HOST);
 console.log('Running on http://'+HOST+':'+PORT);

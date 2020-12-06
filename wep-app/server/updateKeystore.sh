@@ -2,24 +2,24 @@
 
 echo 'printing keystore for Sales'
 
-SALES_KEYSTORE=$(ls ../../ufo-network/crypto-config/peerOrganizations/sales.ufo.com/users/Admin\@sales.ufo.com/msp/keystore/)
-CUSTOMER_KEYSTORE=$(ls ../../ufo-network/crypto-config/peerOrganizations/customer.ufo.com/users/Admin\@customer.ufo.com/msp/keystore/)
+ORG_1_KEYSTORE=$(ls ../../ufo-network/crypto-config/peerOrganizations/sales.ufo.com/users/Admin\@sales.ufo.com/msp/keystore/)
+ORG_2_KEYSTORE=$(ls ../../ufo-network/crypto-config/peerOrganizations/customer.ufo.com/users/Admin\@customer.ufo.com/msp/keystore/)
 
-SALES_PATH_TO_KEYSTORE="Admin@sales.ufo.com/msp/keystore/"
-CUSTOMER_PATH_TO_KEYSTORE="Admin@customer.ufo.com/msp/keystore/"
+ORG_1_PATH_TO_KEYSTORE="Admin@sales.ufo.com/msp/keystore/"
+ORG_2_PATH_TO_KEYSTORE="Admin@customer.ufo.com/msp/keystore/"
 
-UPDATED_KEYSTORE_SALES="$SALES_PATH_TO_KEYSTORE$SALES_KEYSTORE"
-UPDATED_KEYSTORE_CUSTOMER="$CUSSTOMER_PATH_TO_KEYSTORE$CUSTOMER_KEYSTORE"
+UPDATED_KEYSTORE_ORG_1="$ORG_1_PATH_TO_KEYSTORE$ORG_1_KEYSTORE"
+UPDATED_KEYSTORE_ORG_2="$ORG_2_PATH_TO_KEYSTORE$ORG_2_KEYSTORE"
 
-echo $UPDATED_KEYSTORE_SALES
+echo $UPDATED_KEYSTORE_ORG_1
 
 # sed -i "s|keystore/.*|${UPDATED_KEYSTORE}|g" connection.yaml
 # .* is regex-ese for "any character followed by zero or more of any character(s)"
 
-echo 'updating connection.yaml Sales adminPrivateKey path with' ${UPDATED_KEYSTORE_SALES}
+echo 'updating connection.yaml Sales adminPrivateKey path with' ${UPDATED_KEYSTORE_ORG_1}
 
-sed -i -e "s|Admin@sales.ufo.com/msp/keystore/.*|$UPDATED_KEYSTORE_SALES|g" connection.yaml
+sed -i -e "s|Admin@sales.ufo.com/msp/keystore/.*|$UPDATED_KEYSTORE_ORG_1|g" connection.yaml
 
-echo 'updating connection.yaml Customer adminPrivateKey path with' ${UPDATED_KEYSTORE_CUSTOMER}
+echo 'updating connection.yaml Customer adminPrivateKey path with' ${UPDATED_KEYSTORE_ORG_2}
 
-sed -i -e "s|Admin@customer.ufo.com/msp/keystore/.*|$UPDATED_KEYSTORE_CUSTOMER|g" connection.yaml
+sed -i -e "s|Admin@customer.ufo.com/msp/keystore/.*|$UPDATED_KEYSTORE_ORG_2|g" connection.yaml
