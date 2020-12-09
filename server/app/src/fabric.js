@@ -312,9 +312,13 @@ exports.getHistoryWallet = async function (id) {
         // Disconnect from the gateway.
         await gateway.disconnect();
 
-        console.log(Buffer.from(result).toString());
+        let json = JSON.parse(result)
 
-        return result
+        let data = json.data
+        let dataStr = Buffer.from(data).toString()
+        let dataJson = JSON.parse(dataStr)
+
+        return dataJson
 
     } catch (error) {
         console.error(`Failed to submit transaction: ${error}`);

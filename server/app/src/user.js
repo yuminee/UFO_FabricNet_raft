@@ -4,7 +4,11 @@ const saltRounds = 12
 const fabric = require('./fabric')
 
 exports.getUser = (req, res) => {
-    models.User.findAll().then(result => {
+    models.User.findAll({
+        where: {
+            kakao_id: [req.body.sender, req.body.receiver]
+        }
+    }).then(result => {
         console.log(result)
         res.send(true)
     }).catch(err => {
@@ -125,4 +129,44 @@ exports.getBalance = (req, res) => {
     })
 }
 
+exports.getHistoryWallet = (req, res) => {
+     
+    models.User.findOne({
+        where: {
+            kakao_id: req.params.id
+        }
+    }).then(result => {
+        let ca_id = result.dataValues.customer_id
 
+        fabric.getHistoryWallet(ca_id).then(result => {
+        
+            data = []
+            result.forEach(rs => {
+                
+                tmp = {}
+
+                ts = rs.Timestamp.seconds.low
+                date = new Date(ts * 1000)
+                ndate = date.toLocaleString("ko-KR", {
+                    timeZone: "Asia/Seoul"
+                })
+
+                tmp.date = ndate
+                tmp.token = rs.Value.Token
+                tmp.invoke = rs.Value.Invoke
+
+                data.push(tmp)
+            })
+  
+            res.json(data)
+        }).catch(err => {
+            console.log(err)
+            res.send(false)
+        })
+    }).catch(err => {
+        console.log(err)
+        res.send(false)
+    })
+
+
+}
