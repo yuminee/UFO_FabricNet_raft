@@ -15,4 +15,6 @@ router.get('/', (req, res) => {
     // res.send('asd')
 })
 
+router.use('/user', require('./user'))
+
 module.exports = router;
