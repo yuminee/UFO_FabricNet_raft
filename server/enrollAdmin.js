@@ -11,7 +11,7 @@ const path = require('path');
 const yaml = require('js-yaml')
 
 // capture network variables from config.json
-const configPath = path.join(process.cwd(), 'config.json');
+const configPath = path.join(process.cwd(), 'bin/config.json');
 const configJSON = fs.readFileSync(configPath, 'utf8');
 const config = JSON.parse(configJSON);
 var connection_file = config.connection_file;
@@ -21,7 +21,7 @@ var userName = config.userName;
 var orgMSPID = config.orgMSPID;
 var caName = config.caName;
 
-const filePath = path.join(process.cwd(), '/connection.yaml');
+const filePath = path.join(process.cwd(), 'bin/connection.yaml');
 let fileContents = fs.readFileSync(filePath, 'utf8');
 let connectionFile = yaml.safeLoad(fileContents);
 

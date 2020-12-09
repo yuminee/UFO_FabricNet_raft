@@ -17,7 +17,7 @@ exports.signup = (req, res) => {
                 kakao_id: kakao_id,
                 customer_id: hash
             }).then(result => {
-
+             
                 fabric.initWallet(hash).then(response => {
                     console.log(response)
                     res.send(true)    
@@ -45,14 +45,17 @@ exports.login = (req, res) => {
         if (result.count == 0) {
             console.log('There is no User')
             res.send(false)
+            return
         }
 
-        fabric.initWallet(hash).then(response => {
-            console.log(response)
-            res.send(true)    
-        }).catch(err => {
-            res.send(false)
-        })
+        res.send(true)
+
+        // fabric.initWallet(hash).then(response => {
+        //     console.log(response)
+        //     res.send(true)    
+        // }).catch(err => {
+        //     res.send(false)
+        // })
         
     }).catch(err => {
         console.log(err)
