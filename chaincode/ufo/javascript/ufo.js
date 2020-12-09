@@ -54,11 +54,14 @@ class Ufo extends Contract{
             throw new Error(`${id} does not exist`);
         }
 
-        console.log(walletAsBytes.toString());
+        let walletInfo = {};
+        walletInfo = JSON.parse(walletAsBytes.toString());
+        
+        console.log(walletInfo);
   
        
         console.info('========== END : getBalance ===========')
-        return walletToken.toString();
+        return walletInfo;
     }
 
     async chargeMoney(ctx, id, amount){
