@@ -107,12 +107,12 @@ exports.getBalance = async function (id) {
         // initWallet transaction - requires 1 argument, ex: ('initWallet', '11111111')
 
         const result = await contract.submitTransaction('getBalance', id);
-        console.log('Transaction has been submitted');
+        console.log(Buffer.from(result).toString());
 
         // Disconnect from the gateway.
         await gateway.disconnect();
 
-        console.log(`Transaction has been evaluated, result is: ${result.toString()}`);
+       
 
         return result;
 

@@ -4,8 +4,11 @@ const user = require('../src/user')
 
 module.exports = router
 
+router.get('/', user.getUser)
 router.post('/signup', user.signup)
 router.post('/login', user.login)
+router.delete('/', user.delete)
+router.get('/getBalance/:id', user.getBalance)
 
 // router.post('/login', user.login)
 // router.get('/logout', user.logout)

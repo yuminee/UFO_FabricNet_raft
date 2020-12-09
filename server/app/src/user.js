@@ -3,6 +3,16 @@ const bcrypt = require('bcrypt')
 const saltRounds = 12
 const fabric = require('./fabric')
 
+exports.getUser = (req, res) => {
+    models.User.findAll().then(result => {
+        console.log(result)
+        res.send(true)
+    }).catch(err => {
+        console.log(err)
+        res.send(false)
+    })
+}
+
 exports.signup = (req, res) => {
     let kakao_id = req.body.kakao_id
     let customer_id = kakao_id + "_c"
@@ -49,16 +59,70 @@ exports.login = (req, res) => {
         }
 
         res.send(true)
-
-        // fabric.initWallet(hash).then(response => {
-        //     console.log(response)
-        //     res.send(true)    
-        // }).catch(err => {
-        //     res.send(false)
-        // })
-        
+    
     }).catch(err => {
         console.log(err)
         res.send(false)
     })
 }
+
+exports.delete = (req, res) => {
+
+    models.User.findOne({
+        where: {
+            kakao_id: req.body.kakao_id
+        }
+    }).then(result => {
+
+        let customer_id = result.dataValues.customer_id
+        
+        fabric.deleteWallet(customer_id).then(response => {
+
+            models.User.destroy({
+                where: {
+                    kakao_id: req.body.kakao_id
+                }
+            }).then(result => {
+                console.log(result)
+                res.send(true)
+            }).catch(err => {
+                console.log(err)
+                res.send(false)
+            })
+
+        }).catch(err => {
+            console.log(err)
+            res.send(false)
+        })
+
+    }).catch(error => {
+        console.log(error)
+        res.send(false)
+    })
+}
+
+exports.getBalance = (req, res) => {
+    
+    models.User.findOne({
+        where: {
+            kakao_id: req.params.id
+        }
+    }).then(result => {
+        let ca_id = result.dataValues.customer_id
+
+        fabric.getBalance(ca_id).then(result => {
+            let jsonStr = Buffer.from(result).toString()
+            let json = JSON.parse(jsonStr)
+
+            res.json(json)
+        }).catch(err => {
+            console.log(err)
+            res.send(false)
+        })
+    }).catch(err => {
+        console.log(err)
+        res.send(false)
+    })
+}
+
+
