@@ -1,0 +1,9 @@
+{
+    "connection_file": "connection.yaml",
+    "appAdmin": "admin",
+    "appAdminSecret": "adminpw",
+    "orgMSPID": "SalesMSP",
+    "caName": "ca.sales.ufo.com",
+    "userName": "admin",
+    "gatewayDiscovery": { "enabled": false, "asLocalhost": true }
+}

@@ -2,8 +2,8 @@
 
 echo 'printing keystore for Sales'
 
-ORG_1_KEYSTORE=$(ls ../ufo-network/crypto-config/peerOrganizations/sales.ufo.com/users/Admin\@sales.ufo.com/msp/keystore/)
-ORG_2_KEYSTORE=$(ls ../ufo-network/crypto-config/peerOrganizations/customer.ufo.com/users/Admin\@customer.ufo.com/msp/keystore/)
+ORG_1_KEYSTORE=$(ls ../../ufo-network/crypto-config/peerOrganizations/sales.ufo.com/users/Admin\@sales.ufo.com/msp/keystore/)
+ORG_2_KEYSTORE=$(ls ../../ufo-network/crypto-config/peerOrganizations/customer.ufo.com/users/Admin\@customer.ufo.com/msp/keystore/)
 
 ORG_1_PATH_TO_KEYSTORE="Admin@sales.ufo.com/msp/keystore/"
 ORG_2_PATH_TO_KEYSTORE="Admin@customer.ufo.com/msp/keystore/"
