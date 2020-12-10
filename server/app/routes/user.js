@@ -4,7 +4,7 @@ const user = require('../src/user')
 
 module.exports = router
 
-router.post('/', user.getUser)
+router.get('/', user.getUser)
 router.post('/signup', user.signup)
 router.post('/login', user.login)
 router.delete('/', user.delete)

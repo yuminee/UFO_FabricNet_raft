@@ -8,10 +8,10 @@ exports.chargeMoney = (req, res) => {
         }
     }).then(result => {
         let ca_id = result.dataValues.customer_id
+
         fabric.chargeMoney(ca_id, req.body.amount).then(result => {
             res.send(result)
         })
-
         
     }).catch(err => {
         console.log(err)
